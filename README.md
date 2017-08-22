@@ -1,7 +1,7 @@
 # SOA Book API
 Project done as a proof of concept API with microservice architecture
 
-Course: Service Oriented Architecture @ [FCSE](www.finki.ukim.mk)
+Course: Service Oriented Architecture @ [FCSE](https://www.finki.ukim.mk)
 
 ## Short description
 

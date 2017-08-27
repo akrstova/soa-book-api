@@ -28,6 +28,7 @@ The initial database records will be filled with data scraped from the web.
 * Genre microservice
 * Publication Year microservice
 * Rating microservice
+* Book microservice
 * Random search microservice
 * User microservice
 * User Preferences microservice

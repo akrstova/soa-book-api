@@ -37,7 +37,9 @@ The initial database records will be filled with data scraped from the web.
 * Custom API Gateway
 
 ## Picture of application architecture
- ** TBA
+ ![alt text][logo]
+ 
+ [logo]: https://github.com/alisakrstova/soa-book-api/app_architecture.png "app architecture"
  
 ## Team Members
 * [Alisa Krstova 141501](https://github.com/alisakrstova) 

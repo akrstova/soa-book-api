@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/genres", produces = "application/json")
+@RequestMapping(value = "/genres", produces = "application/json")
 public class GenreController {
 
     private final GenreService genreService;

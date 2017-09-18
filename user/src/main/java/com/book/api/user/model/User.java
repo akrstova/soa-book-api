@@ -24,4 +24,7 @@ public class User {
     @NotNull
     @Email
     private String email;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    private JwtToken token = new JwtToken();
 }

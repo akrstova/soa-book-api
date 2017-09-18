@@ -5,8 +5,15 @@ spring:
 ---
 spring:
   datasource:
-    driverClassName: org.h2.Driver
-    url: jdbc:h2:mem:sampletest;MODE=MySQL
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/soa-book-api-users
+    username: root
+    password: kirkovg
+
+spring.jpa:
+  hibernate:
+    dialect: org.hibernate.dialect.MySQLInnoDBDialect
+    ddl-auto: update
 
 ---
 spring:
@@ -30,6 +37,14 @@ spring.jpa:
   hibernate:
     dialect: org.hibernate.dialect.MySQLInnoDBDialect
     ddl-auto: update
+
+---
+logging:
+  level:
+    org:
+      springframework:
+        security: debug
+
 
 #eureka:
 #  client:

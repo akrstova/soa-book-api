@@ -1,13 +1,11 @@
 package com.book.api.user;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
-@EnableDiscoveryClient
+//@EnableDiscoveryClient // TODO: uncomment when deploying
 @SpringBootApplication
-@EnableAutoConfiguration
 public class UserApplication {
 
     public static void main(String[] args) {

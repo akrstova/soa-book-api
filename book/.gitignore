@@ -1,6 +1,5 @@
 target/
 !.mvn/wrapper/maven-wrapper.jar
-lucene_indexes/
 
 ### STS ###
 .apt_generated
@@ -11,7 +10,7 @@ lucene_indexes/
 .springBeans
 
 ### IntelliJ IDEA ###
-.idea/
+.idea
 *.iws
 *.iml
 *.ipr

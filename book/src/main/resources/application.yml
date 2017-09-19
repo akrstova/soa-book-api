@@ -1,0 +1,48 @@
+---
+spring:
+  profiles: default
+  jpa:
+    properties:
+      hibernate:
+        search:
+          default:
+            directory_provider: filesystem
+            indexBase: lucene_indexes
+    hibernate:
+      ddl-auto: update
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/soa-book-api-books
+    username: root
+    password: kirkovg
+
+---
+spring:
+  profiles: test
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+---
+spring:
+  profiles: local
+  jpa:
+    hibernate:
+      ddl-auto: update
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://my-mysql:3306/demo
+    username: dbuser
+    password: dbp4ss
+
+---
+logging:
+  level:
+    org:
+      springframework:
+        security: debug
+
+
+#eureka:
+#  client:
+#    service-url:
+#     defaultZone: http://my-eureka:8761/eureka/

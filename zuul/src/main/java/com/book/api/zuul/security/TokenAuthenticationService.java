@@ -5,6 +5,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 
 import static java.util.Collections.emptyList;
 
@@ -15,7 +18,7 @@ class TokenAuthenticationService {
 
     static Authentication getAuthentication(HttpServletRequest request) {
         String token = request.getHeader(HEADER_STRING);
-        if (token != null) {
+        if (token != null && checkIfTokenIsNotExpired(token)) {
             // parse the token.
             String user = Jwts.parser()
                     .setSigningKey(SECRET)
@@ -28,5 +31,18 @@ class TokenAuthenticationService {
                     null;
         }
         return null;
+    }
+
+    private static boolean checkIfTokenIsNotExpired(String token) {
+        if (token != null) {
+            Date expiryDate = Jwts.parser()
+                    .setSigningKey(SECRET)
+                    .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
+                    .getBody().getExpiration();
+
+            LocalDateTime expiryDateTime = LocalDateTime.ofInstant(expiryDate.toInstant(), ZoneId.systemDefault());
+            return !expiryDateTime.isBefore(LocalDateTime.now());
+        }
+        return false;
     }
 }

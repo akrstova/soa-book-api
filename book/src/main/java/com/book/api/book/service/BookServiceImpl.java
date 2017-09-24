@@ -85,4 +85,9 @@ public class BookServiceImpl implements BookService {
     public Page<Book> findByAuthorId(Integer page, Integer size, Long authorId) {
         return bookRepository.findByAuthorId(new PageRequest(page, size), authorId);
     }
+
+    @Override
+    public Page<Book> searchBooksPaged(Integer page, Integer size) {
+        return bookRepository.findAll(new PageRequest(page, size));
+    }
 }

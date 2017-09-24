@@ -34,4 +34,6 @@ public interface BookService {
     Page<Book> findByGenreId(Integer page, Integer size, Long genreId);
 
     Page<Book> findByAuthorId(Integer page, Integer size, Long authorId);
+
+    Page<Book> searchBooksPaged(Integer page, Integer size);
 }

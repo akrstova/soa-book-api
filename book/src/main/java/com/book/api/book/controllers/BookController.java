@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.ws.rs.Path;
 import java.util.List;
 
 @RestController
@@ -80,10 +79,16 @@ public class BookController {
         return new ResponseEntity<>(bookPage, HttpStatus.OK);
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET, value = "/search")
     public ResponseEntity<List<Book>> searchBooks(@RequestParam String query) {
         List<Book> books = bookService.searchBooks(query);
         return new ResponseEntity<>(books, HttpStatus.OK);
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<List<Book>> getBooksPaged(@RequestParam Integer page, @RequestParam Integer size) {
+        Page<Book> bookPage = bookService.searchBooksPaged(page, size);
+        return new ResponseEntity<>(bookPage.getContent(), HttpStatus.OK);
     }
 }
 

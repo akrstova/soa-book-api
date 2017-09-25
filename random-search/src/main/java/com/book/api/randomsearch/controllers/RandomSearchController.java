@@ -24,6 +24,7 @@ public class RandomSearchController {
     private static final String BOOKS_ENDPOINT = ":8080/books/";
     private static final String AUTHORS_ENDPOINT = ":8080/authors/";
     private static final String GENRES_ENDPOINT = ":8080/genres/";
+    private static final String RATINGS_ENDPOINT = ":8080/ratings";
 
     @Bean
     RestTemplate restTemplate() {
@@ -47,19 +48,23 @@ public class RandomSearchController {
         List<ServiceInstance> bookServices = discoveryClient.getInstances("book");
         List<ServiceInstance> genreServices = discoveryClient.getInstances("genre");
         List<ServiceInstance> authorServices = discoveryClient.getInstances("author");
+        List<ServiceInstance> ratingServices = discoveryClient.getInstances("rating");
 
         EurekaDiscoveryClient.EurekaServiceInstance bookServiceInstance =
                 (EurekaDiscoveryClient.EurekaServiceInstance) bookServices
                         .get(randomServiceNumber.nextInt(bookServices.size()));
 
         EurekaDiscoveryClient.EurekaServiceInstance genreServiceInstance =
-                (EurekaDiscoveryClient.EurekaServiceInstance) bookServices
+                (EurekaDiscoveryClient.EurekaServiceInstance) genreServices
                         .get(randomServiceNumber.nextInt(genreServices.size()));
 
         EurekaDiscoveryClient.EurekaServiceInstance authorServiceInstance =
                 (EurekaDiscoveryClient.EurekaServiceInstance) bookServices
                         .get(randomServiceNumber.nextInt(authorServices.size()));
 
+        EurekaDiscoveryClient.EurekaServiceInstance ratingServiceInstance =
+                (EurekaDiscoveryClient.EurekaServiceInstance) bookServices
+                        .get(randomServiceNumber.nextInt(ratingServices.size()));
 
         Random randomPageNumber = new Random(10);
 
@@ -76,6 +81,9 @@ public class RandomSearchController {
 
         String authorServiceInstanceIp = authorServiceInstance.getInstanceInfo().getIPAddr();
         List<AuthorDto> authors = getAuthors(authorServiceInstanceIp, books.getBody());
+
+        String ratingServiceInstanceIp = ratingServiceInstance.getInstanceInfo().getIPAddr();
+        List<RatingDto> ratings = getRatings(ratingServiceInstanceIp, books.getBody());
 
 
         List<BookDto> resultBooks = new ArrayList<>();
@@ -98,6 +106,12 @@ public class RandomSearchController {
                     .findFirst()
                     .orElseThrow(() -> new EntityNotFoundException("Non existent author"));
             bookDto.setAuthor(authorDto);
+
+            RatingDto ratingDto = ratings.stream()
+                    .filter(r -> r.getBookId().equals(book.getId()))
+                    .findFirst()
+                    .orElseThrow(() -> new EntityNotFoundException("Non existent rating"));
+            bookDto.setRating(ratingDto);
 
             resultBooks.add(bookDto);
         }
@@ -138,5 +152,23 @@ public class RandomSearchController {
             genres.add(genre.getBody());
         }
         return genres;
+    }
+
+    @SuppressWarnings("unchecked")
+    private List<RatingDto> getRatings(String ratingServiceInstanceIp, List<Book> books) {
+        List<Long> bookIds = books
+                .stream()
+                .map(Book::getId)
+                .collect(toList());
+
+        List<RatingDto> ratings = new ArrayList<>();
+
+        for (Long id: bookIds) {
+            ResponseEntity<RatingDto> rating = this.restTemplate
+                    .getForObject(HTTP_PREFIX + ratingServiceInstanceIp + RATINGS_ENDPOINT + id, ResponseEntity.class);
+            ratings.add(rating.getBody());
+        }
+
+        return ratings;
     }
 }

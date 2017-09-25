@@ -11,4 +11,5 @@ public class BookDto {
     private Integer numPages;
     private GenreDto genre;
     private AuthorDto author;
+    private RatingDto rating;
 }

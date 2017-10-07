@@ -1,6 +1,7 @@
 package com.book.api.apigateway.controllers;
 
-import com.book.api.randomsearch.model.BookDto;
+import com.book.api.apigateway.model.BookDto;
+import com.book.api.apigateway.model.GenreDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
@@ -9,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
@@ -49,14 +51,20 @@ public class ApiGatewayController {
         EurekaDiscoveryClient.EurekaServiceInstance randomSearchInstance =
                 (EurekaDiscoveryClient.EurekaServiceInstance) randomSearchServices.get(randomServiceNumber.nextInt(randomSearchServices.size()));
 
-        Random randomPageNumber = new Random(10);
-        Map<String, Integer> uriVariables = new HashMap<>();
-        uriVariables.put("page", randomPageNumber.nextInt());
-        uriVariables.put("size", 5);
-
+        String randomSearchInstanceIp = randomSearchInstance.getInstanceInfo().getIPAddr();
         return this.restTemplate
-                .getForObject(HTTP_PREFIX + randomSearchInstance + RANDOM_ENDPOINT, ResponseEntity.class, uriVariables);
+                .getForObject(HTTP_PREFIX + randomSearchInstanceIp + RANDOM_ENDPOINT, ResponseEntity.class);
     }
 
+    @RequestMapping(value = "/genres", method = RequestMethod.GET)
+    public ResponseEntity<List<GenreDto>> getGenres() {
+        Random randomServiceNumber = new Random();
 
+        List<ServiceInstance> genreServices = discoveryClient.getInstances("genres");
+        EurekaDiscoveryClient.EurekaServiceInstance genreServiceInstance =
+                (EurekaDiscoveryClient.EurekaServiceInstance) genreServices.get(randomServiceNumber.nextInt(genreServices.size()));
+
+        String genreInstanceIp = genreServiceInstance.getInstanceInfo().getIPAddr();
+        return this.restTemplate.getForObject(HTTP_PREFIX + genreInstanceIp + GENRES_ENDPOINT, ResponseEntity.class);
+    }
 }

@@ -35,8 +35,8 @@ public class RandomSearchController {
     private final DiscoveryClient discoveryClient;
 
     @Autowired
-    public RandomSearchController(RestTemplate restTemplate, DiscoveryClient discoveryClient) {
-        this.restTemplate = restTemplate;
+    public RandomSearchController(DiscoveryClient discoveryClient) {
+        this.restTemplate = restTemplate();
         this.discoveryClient = discoveryClient;
     }
 
@@ -85,7 +85,8 @@ public class RandomSearchController {
         String ratingServiceInstanceIp = ratingServiceInstance.getInstanceInfo().getIPAddr();
         List<RatingDto> ratings = getRatings(ratingServiceInstanceIp, books.getBody());
 
-
+        List<Book> shuffledBooks = books.getBody();
+        Collections.shuffle(shuffledBooks);
         List<BookDto> resultBooks = new ArrayList<>();
 
         for (Book book : books.getBody()) {

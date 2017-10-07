@@ -89,7 +89,7 @@ public class RandomSearchController {
         Collections.shuffle(shuffledBooks);
         List<BookDto> resultBooks = new ArrayList<>();
 
-        for (Book book : books.getBody()) {
+        for (Book book : shuffledBooks) {
             BookDto bookDto = new BookDto();
             bookDto.setId(book.getId());
             bookDto.setName(book.getName());

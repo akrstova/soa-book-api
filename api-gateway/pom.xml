@@ -94,6 +94,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.book.api</groupId>
+            <artifactId>random-search</artifactId>
+            <version>0.0.1</version>
+        </dependency>
     </dependencies>
 
 	<dependencyManagement>

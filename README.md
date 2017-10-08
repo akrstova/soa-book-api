@@ -44,7 +44,7 @@ The initial database records will be filled with data scraped from the web.
 ## Available endpoints
 Following are all the endpoints available with their corresponding HTTP methods grouped by logical parts of the system.
 ### Books
-* GET: __/api/books/__ - retrieves paged result of all books
+* GET: __/api/books__ - retrieves paged result of all books
 	* Query string:
 		* size (int) - page size
 		* page (int) - page number
@@ -65,7 +65,7 @@ Following are all the endpoints available with their corresponding HTTP methods 
 * GET: __/api/random__ - retrieves randomized list of books (5 books per page)
 
 ### Authors
-* GET: __/api/authors/__ - retrieves all authors
+* GET: __/api/authors__ - retrieves all authors
 * GET: __/api/authors/{authorId}__ - retrieves author by given ID
 * POST: __/api/authors__ - creates new author
 	* Data parameters:
@@ -77,7 +77,7 @@ Following are all the endpoints available with their corresponding HTTP methods 
 * DELETE: __/api/authors/{authorId}__ - deletes author with given ID
 
 ### Genres
-* GET: __/api/genres/__ - retrieves all genres
+* GET: __/api/genres__ - retrieves all genres
 * GET: __/api/genres/{genreId}__ - retrieves genre by given ID
 * POST: __/api/genres__ - creates new genre
 	* Data parameter:
@@ -86,7 +86,7 @@ Following are all the endpoints available with their corresponding HTTP methods 
 * DELETE: __/api/genres/{genreId}__ - deletes genre with given ID
 
 ### Ratings
-* GET: __/api/ratings/__ - lists all books with a value for the rating equal to the one supplied in the request parameters
+* GET: __/api/ratings__ - lists all books with a value for the rating equal to the one supplied in the request parameters
 	* Query string:
 		* pageSize (int) - number of results per page
 		* pageNumber (int) - specific page you want to retrieve

@@ -1,18 +1,20 @@
 package com.book.api.apigateway.controllers;
 
 import com.book.api.apigateway.model.*;
-import org.bouncycastle.cert.ocsp.Req;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.netflix.eureka.EurekaDiscoveryClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.awt.print.Book;
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -69,6 +71,16 @@ public class ApiGatewayController {
     public ResponseEntity<Book> getBookById(@PathVariable("id") Long id) {
         String bookInstanceIp = getRandomBookInstanceIp();
         return this.restTemplate.getForObject(HTTP_PREFIX + bookInstanceIp + BOOKS_ENDPOINT + id, ResponseEntity.class);
+    }
+
+    @RequestMapping(value = "/books", method = RequestMethod.POST)
+    public ResponseEntity<Book> createBook(@RequestBody @Valid Book book) {
+        String bookInstanceIp = getRandomBookInstanceIp();
+        HttpEntity<Book> bookHttpEntity = new HttpEntity<>(book);
+        return this.restTemplate.exchange(HTTP_PREFIX + bookInstanceIp + BOOKS_ENDPOINT,
+                HttpMethod.POST,
+                bookHttpEntity,
+                Book.class);
     }
 
     @RequestMapping(value = "/books/search", method = RequestMethod.GET)
@@ -135,6 +147,16 @@ public class ApiGatewayController {
     public ResponseEntity<Author> getAuthorById(@PathVariable("id") Long id) {
         String authorInstanceIp = getRandomAuthorInstanceIp();
         return this.restTemplate.getForObject(HTTP_PREFIX + authorInstanceIp + AUTHORS_ENDPOINT + id, ResponseEntity.class);
+    }
+
+    @RequestMapping(value = "/authors", method = RequestMethod.POST)
+    public ResponseEntity<Void> createAuthor(@RequestBody Author author) {
+        String authorInstanceIp = getRandomAuthorInstanceIp();
+        HttpEntity<Author> authorHttpEntity = new HttpEntity<>(author);
+        return this.restTemplate.exchange(HTTP_PREFIX + authorInstanceIp + BOOKS_ENDPOINT,
+                HttpMethod.POST,
+                authorHttpEntity,
+                Void.class);
     }
 
     private String getRandomRatingInstanceIp() {

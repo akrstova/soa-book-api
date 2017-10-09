@@ -127,6 +127,16 @@ public class ApiGatewayController {
         return this.restTemplate.getForObject(HTTP_PREFIX + genreInstanceIp + GENRES_ENDPOINT + id, ResponseEntity.class);
     }
 
+    @RequestMapping(value = "/genres", method = RequestMethod.POST)
+    public ResponseEntity<Void> createGenre(@RequestBody Genre genre) {
+        String genreInstanceIp = getRandomGenreInstanceIp();
+        HttpEntity<Genre> genreHttpEntity = new HttpEntity<>(genre);
+        return this.restTemplate.exchange(HTTP_PREFIX + genreInstanceIp + GENRES_ENDPOINT,
+                HttpMethod.POST,
+                genreHttpEntity,
+                Void.class);
+    }
+
     private String getRandomAuthorInstanceIp() {
         Random randomServiceNumber = new Random();
 
@@ -153,7 +163,7 @@ public class ApiGatewayController {
     public ResponseEntity<Void> createAuthor(@RequestBody Author author) {
         String authorInstanceIp = getRandomAuthorInstanceIp();
         HttpEntity<Author> authorHttpEntity = new HttpEntity<>(author);
-        return this.restTemplate.exchange(HTTP_PREFIX + authorInstanceIp + BOOKS_ENDPOINT,
+        return this.restTemplate.exchange(HTTP_PREFIX + authorInstanceIp + AUTHORS_ENDPOINT,
                 HttpMethod.POST,
                 authorHttpEntity,
                 Void.class);
@@ -185,14 +195,12 @@ public class ApiGatewayController {
                 .queryParam("pageSize", pageSize)
                 .queryParam("grade", grade);
 
-        ResponseEntity<List<RatingDto>> response = this.restTemplate.exchange(
+        return this.restTemplate.exchange(
                 builder.build().encode().toUri(),
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<List<RatingDto>>() {
-                }
+                new ParameterizedTypeReference<List<RatingDto>>() {}
         );
-        return response;
     }
 
     private String getRandomUserInstanceIp() {

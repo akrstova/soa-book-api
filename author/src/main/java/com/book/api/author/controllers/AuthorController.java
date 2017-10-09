@@ -39,9 +39,9 @@ public class AuthorController {
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/{id}")
-    public ResponseEntity<Author> updateAuthor(@RequestBody Author author) {
+    public ResponseEntity<Author> updateAuthor(@RequestBody Author author, @PathVariable Long id) {
         Author updatedAuthor = authorService
-                .updateAuthor(author.getId(),author.getName(), author.getSurname(), author.getBorn(), author.getWebsite());
+                .updateAuthor(id, author.getName(), author.getSurname(), author.getBorn(), author.getWebsite());
         return new ResponseEntity<>(updatedAuthor, HttpStatus.CREATED);
     }
 

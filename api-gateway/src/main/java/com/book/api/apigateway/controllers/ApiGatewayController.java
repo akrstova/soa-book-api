@@ -83,6 +83,25 @@ public class ApiGatewayController {
                 Book.class);
     }
 
+    @RequestMapping(method = RequestMethod.PUT, value = "/books/{bookId}")
+    public ResponseEntity<Book> updateBook(@RequestBody @Valid Book book, @PathVariable Long bookId) {
+        String bookInstanceIp = getRandomBookInstanceIp();
+        HttpEntity<Book> bookHttpEntity = new HttpEntity<>(book);
+        return this.restTemplate.exchange(HTTP_PREFIX + bookInstanceIp + BOOKS_ENDPOINT + bookId,
+                HttpMethod.PUT,
+                bookHttpEntity,
+                Book.class);
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE, value = "/books/{bookId}")
+    public ResponseEntity<Void> deleteBook(@PathVariable Long bookId) {
+        String bookInstanceIp = getRandomBookInstanceIp();
+        return this.restTemplate.exchange(HTTP_PREFIX + bookInstanceIp + BOOKS_ENDPOINT + bookId,
+                HttpMethod.DELETE,
+                null,
+                Void.class);
+    }
+
     @RequestMapping(value = "/books/search", method = RequestMethod.GET)
     public ResponseEntity<List<Book>> searchBooks(@RequestParam String query) {
         Map<String, String> uriVariables = new HashMap<>();
@@ -137,6 +156,25 @@ public class ApiGatewayController {
                 Void.class);
     }
 
+    @RequestMapping(value = "/genres/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Genre> updateGenre(@RequestBody String name, @PathVariable Long id) {
+        String genreInstanceIp = getRandomGenreInstanceIp();
+        HttpEntity<String> genreHttpEntity = new HttpEntity<>(name);
+        return this.restTemplate.exchange(HTTP_PREFIX + genreInstanceIp + GENRES_ENDPOINT + id,
+                HttpMethod.PUT,
+                genreHttpEntity,
+                Genre.class);
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE, value = "/genres/{id}")
+    public ResponseEntity<Void> deleteGenre(@PathVariable Long id) {
+        String genreInstanceIp = getRandomGenreInstanceIp();
+        return this.restTemplate.exchange(HTTP_PREFIX + genreInstanceIp + GENRES_ENDPOINT + id,
+                HttpMethod.DELETE,
+                null,
+                Void.class);
+    }
+
     private String getRandomAuthorInstanceIp() {
         Random randomServiceNumber = new Random();
 
@@ -166,6 +204,25 @@ public class ApiGatewayController {
         return this.restTemplate.exchange(HTTP_PREFIX + authorInstanceIp + AUTHORS_ENDPOINT,
                 HttpMethod.POST,
                 authorHttpEntity,
+                Void.class);
+    }
+
+    @RequestMapping(value = "/authors/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Author> updateAuthor(@RequestBody Author author, @PathVariable Long id) {
+        String authorInstanceIp = getRandomAuthorInstanceIp();
+        HttpEntity<Author> authorHttpEntity = new HttpEntity<>(author);
+        return this.restTemplate.exchange(HTTP_PREFIX + authorInstanceIp + AUTHORS_ENDPOINT + id,
+                HttpMethod.PUT,
+                authorHttpEntity,
+                Author.class);
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE, value = "/authors/{id}")
+    public ResponseEntity<Void> deleteAuthor(@PathVariable Long id) {
+        String authorInstanceIp = getRandomAuthorInstanceIp();
+        return this.restTemplate.exchange(HTTP_PREFIX + authorInstanceIp + AUTHORS_ENDPOINT + id,
+                HttpMethod.DELETE,
+                null,
                 Void.class);
     }
 
@@ -199,7 +256,19 @@ public class ApiGatewayController {
                 builder.build().encode().toUri(),
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<List<RatingDto>>() {}
+                new ParameterizedTypeReference<List<RatingDto>>() {
+                }
+        );
+    }
+
+    @RequestMapping(value = "/ratings/{bookId}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteRatings(@PathVariable Long bookId) {
+        String ratingInstanceIp = getRandomRatingInstanceIp();
+        return this.restTemplate.exchange(
+                HTTP_PREFIX + ratingInstanceIp + RATINGS_ENDPOINT + bookId,
+                HttpMethod.DELETE,
+                null,
+                Void.class
         );
     }
 
@@ -217,5 +286,17 @@ public class ApiGatewayController {
     public ResponseEntity<List<UserDto>> getUsers() {
         String userInstanceIp = getRandomUserInstanceIp();
         return this.restTemplate.getForObject(HTTP_PREFIX + userInstanceIp + USERS_ENDPOINT, ResponseEntity.class);
+    }
+
+    @RequestMapping(value = "/users/register", method = RequestMethod.POST)
+    public ResponseEntity<JwtTokenDto> createUser(@RequestBody User user) {
+        String userInstanceIp = getRandomUserInstanceIp();
+        HttpEntity<User> authorHttpEntity = new HttpEntity<>(user);
+        return this.restTemplate.exchange(
+                HTTP_PREFIX + userInstanceIp + USERS_ENDPOINT,
+                HttpMethod.POST,
+                authorHttpEntity,
+                JwtTokenDto.class
+        );
     }
 }

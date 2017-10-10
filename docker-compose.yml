@@ -28,6 +28,9 @@ services:
       - "traefik.port=8080"
       - "traefik.backend=book-api-zuul"
       - "traefik.frontend.rule=PathPrefixStrip:/book-api-zuul"
+    depends_on:
+      - book-api-traefik
+      - book-api-eureka
 
   book-api-gateway:
     image: soa-book-api/api-gateway
@@ -35,6 +38,18 @@ services:
       - "traefik.port=8080"
       - "traefik.backend=book-api-gateway"
       - "traefik.frontend.rule=PathPrefixStrip:/book-api-gateway"
+    depends_on:
+      - book-api-traefik
+      - book-api-eureka
+      - book-api-mysql
+      - book-api-author
+      - book-api-book
+      - book-api-genre
+      - book-api-random-search
+      - book-api-rating
+      - book-api-user
+      - book-api-user-preferences
+      - book-api-zuul
 
   book-api-mysql:
     image: mysql
@@ -57,14 +72,11 @@ services:
     links:
       - book-api-mysql
       - book-api-eureka
-#      - 141021-zuul
       - book-api-gateway
     depends_on:
       - book-api-mysql
       - book-api-traefik
       - book-api-eureka
-#      - 141021-zuul
-      - book-api-gateway
 
   book-api-book:
     image: soa-book-api/book
@@ -75,14 +87,11 @@ services:
     links:
       - book-api-mysql
       - book-api-eureka
-#      - 141021-zuul
       - book-api-gateway
     depends_on:
       - book-api-mysql
       - book-api-traefik
       - book-api-eureka
-#      - 141021-zuul
-      - book-api-gateway
 
   book-api-genre:
     image: soa-book-api/genre
@@ -93,14 +102,11 @@ services:
     links:
       - book-api-mysql
       - book-api-eureka
-#      - 141021-zuul
       - book-api-gateway
     depends_on:
       - book-api-mysql
       - book-api-traefik
       - book-api-eureka
-#      - 141021-zuul
-      - book-api-gateway
 
   book-api-random-search:
     image: soa-book-api/random-search
@@ -111,14 +117,11 @@ services:
     links:
       - book-api-mysql
       - book-api-eureka
-#      - 141021-zuul
       - book-api-gateway
     depends_on:
       - book-api-mysql
       - book-api-traefik
       - book-api-eureka
-#      - 141021-zuul
-      - book-api-gateway
 
   book-api-rating:
     image: soa-book-api/rating
@@ -129,14 +132,11 @@ services:
     links:
       - book-api-mysql
       - book-api-eureka
-#      - 141021-zuul
       - book-api-gateway
     depends_on:
       - book-api-mysql
       - book-api-traefik
       - book-api-eureka
-#      - 141021-zuul
-      - book-api-gateway
 
   book-api-user:
     image: soa-book-api/user
@@ -147,14 +147,11 @@ services:
     links:
       - book-api-mysql
       - book-api-eureka
-#      - 141021-zuul
       - book-api-gateway
     depends_on:
       - book-api-mysql
       - book-api-traefik
       - book-api-eureka
-#      - 141021-zuul
-      - book-api-gateway
 
   book-api-user-preferences:
     image: soa-book-api/user-preferences
@@ -165,14 +162,11 @@ services:
     links:
       - book-api-mysql
       - book-api-eureka
-#      - 141021-zuul
       - book-api-gateway
     depends_on:
       - book-api-mysql
       - book-api-traefik
       - book-api-eureka
-#      - 141021-zuul
-      - book-api-gateway
 
 volumes:
   book-api-datavolume: {}

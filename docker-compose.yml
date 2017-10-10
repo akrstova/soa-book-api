@@ -44,7 +44,7 @@ services:
       MYSQL_PASSWORD: dbp4ss
       MYSQL_DATABASE: demo
     volumes:
-      - my-datavolume:/var/lib/mysql
+      - book-api-datavolume:/var/lib/mysql
     labels:
       - "traefik.enable=false"
 
@@ -175,4 +175,4 @@ services:
       - book-api-gateway
 
 volumes:
-  141021-datavolume: {}
+  book-api-datavolume: {}

@@ -30,7 +30,7 @@ services:
       - "traefik.frontend.rule=PathPrefixStrip:/book-api-zuul"
 
   book-api-gateway:
-    image: soa-book-api/gateway
+    image: soa-book-api/api-gateway
     labels:
       - "traefik.port=8080"
       - "traefik.backend=book-api-gateway"

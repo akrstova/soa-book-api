@@ -26,12 +26,7 @@ spring.datasource:
   username: dbuser
   password: dbp4ss
 
-spring.jpa:
-  hibernate:
-    dialect: org.hibernate.dialect.MySQLInnoDBDialect
-    ddl-auto: update
-
 eureka:
   client:
     service-url:
-     defaultZone: http://book-api-eureka:8761/eureka/
+      defaultZone: http://book-api-eureka:8761/eureka/

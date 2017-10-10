@@ -26,11 +26,17 @@ spring:
 spring:
   profiles: local
   jpa:
-    hibernate:
-      ddl-auto: update
+      properties:
+        hibernate:
+          search:
+            default:
+              directory_provider: filesystem
+              indexBase: lucene_indexes
+      hibernate:
+        ddl-auto: update
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://my-mysql:3306/demo
+    url: jdbc:mysql://book-api-mysql:3306/demo
     username: dbuser
     password: dbp4ss
 
@@ -42,7 +48,7 @@ logging:
         security: debug
 
 
-#eureka:
-#  client:
-#    service-url:
-#     defaultZone: http://my-eureka:8761/eureka/
+eureka:
+  client:
+    service-url:
+     defaultZone: http://book-api-eureka:8761/eureka/

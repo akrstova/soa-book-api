@@ -34,6 +34,8 @@ spring:
               indexBase: lucene_indexes
       hibernate:
         ddl-auto: update
+        dialect: org.hibernate.dialect.MySQLInnoDBDialect
+
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://book-api-mysql:3306/demo

@@ -35,8 +35,6 @@ services:
       - "traefik.port=8080"
       - "traefik.backend=book-api-gateway"
       - "traefik.frontend.rule=PathPrefixStrip:/book-api-gateway"
-    depends_on:
-      -
 
   book-api-mysql:
     image: mysql

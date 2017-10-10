@@ -6,9 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
-@Entity
 @Data
-@Table(name = "user_tokens")
 public class JwtToken {
 
     @Id

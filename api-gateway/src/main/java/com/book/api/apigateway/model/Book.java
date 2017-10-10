@@ -10,6 +10,6 @@ public class Book {
     private Integer yearPublished;
     private String description;
     private Integer numPages;
-    private Long genreId;
-    private Long authorId;
+    private GenreDto genre;
+    private AuthorDto author;
 }

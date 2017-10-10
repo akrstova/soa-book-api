@@ -16,6 +16,10 @@ cd eureka
 mvn package docker:build
 cd ..
 
+cd genre
+mvn package docker:build
+cd ..
+
 cd random-search
 mvn package docker:build
 cd ..

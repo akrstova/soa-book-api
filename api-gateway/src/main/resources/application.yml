@@ -1,0 +1,32 @@
+---
+spring:
+  profiles: default
+
+---
+spring:
+  datasource:
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:mem:sampletest;MODE=MySQL
+
+---
+spring:
+  profiles: test
+
+spring.jpa:
+  hibernate:
+    ddl-auto: create-drop
+
+---
+spring:
+  profiles: local
+
+spring.datasource:
+  driverClassName: com.mysql.jdbc.Driver
+  url: jdbc:mysql://141021-mysql:3306/demo
+  username: dbuser
+  password: dbp4ss
+
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://my-eureka:8761/eureka/

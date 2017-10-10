@@ -1,7 +1,7 @@
 version: '2'
 services:
   book-api-traefik:
-    image: book-api/traefik
+    image: soa-book-api/traefik
     command: -c /dev/null --web --docker --docker.domain=dck.mojserver.mk
     labels:
       - "traefik.enable=false"
@@ -12,7 +12,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
 
   book-api-eureka:
-    image: book-api/eureka
+    image: soa-book-api/eureka
     labels:
       - "traefik.port=8761"
       - "traefik.backend=book-api-eureka"
@@ -23,14 +23,14 @@ services:
       - "8761:8761"
 
   book-api-zuul:
-    image: book-api/zuul
+    image: soa-book-api/zuul
     labels:
       - "traefik.port=8080"
       - "traefik.backend=book-api-zuul"
       - "traefik.frontend.rule=PathPrefixStrip:/book-api-zuul"
 
   book-api-gateway:
-    image: book-api/gateway
+    image: soa-book-api/gateway
     labels:
       - "traefik.port=8080"
       - "traefik.backend=book-api-gateway"
@@ -49,7 +49,7 @@ services:
       - "traefik.enable=false"
 
   book-api-author:
-    image: book-api/author
+    image: soa-book-api/author
     labels:
       - "traefik.port=8080"
       - "traefik.backend=book-api-author"
@@ -67,7 +67,7 @@ services:
       - book-api-gateway
 
   book-api-book:
-    image: book-api/book
+    image: soa-book-api/book
     labels:
       - "traefik.port=8080"
       - "traefik.backend=book-api-book"
@@ -85,7 +85,7 @@ services:
       - book-api-gateway
 
   book-api-genre:
-    image: book-api/genre
+    image: soa-book-api/genre
     labels:
       - "traefik.port=8080"
       - "traefik.backend=book-api-genre"
@@ -103,7 +103,7 @@ services:
       - book-api-gateway
 
   book-api-random-search:
-    image: book-api/random-search
+    image: soa-book-api/random-search
     labels:
       - "traefik.port=8080"
       - "traefik.backend=book-api-random-search"
@@ -121,7 +121,7 @@ services:
       - book-api-gateway
 
   book-api-rating:
-    image: book-api/rating
+    image: soa-book-api/rating
     labels:
       - "traefik.port=8080"
       - "traefik.backend=book-api-rating"
@@ -139,7 +139,7 @@ services:
       - book-api-gateway
 
   book-api-user:
-    image: book-api/user
+    image: soa-book-api/user
     labels:
       - "traefik.port=8080"
       - "traefik.backend=book-api-user"
@@ -157,7 +157,7 @@ services:
       - book-api-gateway
 
   book-api-user-preferences:
-    image: book-api/user-preferences
+    image: soa-book-api/user-preferences
     labels:
       - "traefik.port=8080"
       - "traefik.backend=book-api-user-preferences"

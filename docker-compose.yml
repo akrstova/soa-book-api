@@ -1,7 +1,7 @@
 version: '2'
 services:
   book-api-traefik:
-    image: soa-book-api/traefik
+    image: traefik
     command: -c /dev/null --web --docker --docker.domain=dck.mojserver.mk
     labels:
       - "traefik.enable=false"

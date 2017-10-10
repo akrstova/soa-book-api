@@ -20,12 +20,6 @@ spring.jpa:
 spring:
   profiles: local
 
-spring.datasource:
-  driverClassName: com.mysql.jdbc.Driver
-  url: jdbc:mysql://book-api-mysql:3306/demo
-  username: dbuser
-  password: dbp4ss
-
 eureka:
   client:
     service-url:

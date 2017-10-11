@@ -16,6 +16,7 @@ public class User {
     private Long id;
 
     @NotNull
+    @Column(name = "username")
     private String userName;
 
     @NotNull

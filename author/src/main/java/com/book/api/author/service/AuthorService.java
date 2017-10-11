@@ -10,9 +10,9 @@ public interface AuthorService {
 
     Author findOne(Long id);
 
-    void createAuthor(String name, String surname, String born, String website);
+    void createAuthor(String name,String born, String website);
 
     void deleteAuthor(Long id);
 
-    Author updateAuthor(Long id, String name, String surname, String born, String website);
+    Author updateAuthor(Long id, String name, String born, String website);
 }

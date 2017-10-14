@@ -272,6 +272,19 @@ public class ApiGatewayController {
         );
     }
 
+    @RequestMapping(value = "/ratings/{bookId}", method = RequestMethod.POST)
+    public ResponseEntity<RatingDto> rateBook(@PathVariable Long bookId, @RequestParam Integer grade) {
+        String ratingInstanceIp = getRandomRatingInstanceIp();
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(HTTP_PREFIX + ratingInstanceIp + RATINGS_ENDPOINT + bookId)
+                .queryParam("grade", grade);
+        return this.restTemplate.exchange(
+                builder.build().encode().toUri(),
+                HttpMethod.POST,
+                null,
+                RatingDto.class
+        );
+    }
+
     private String getRandomUserInstanceIp() {
         Random randomServiceNumber = new Random();
 

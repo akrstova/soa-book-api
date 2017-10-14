@@ -28,10 +28,9 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public void createAuthor(String name, String surname, String born, String website) {
+    public void createAuthor(String name, String born, String website) {
         Author author = new Author();
         author.setName(name);
-        author.setSurname(surname);
         author.setBorn(born);
         author.setWebsite(website);
 
@@ -44,10 +43,9 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public Author updateAuthor(Long id, String name, String surname, String born, String website) {
+    public Author updateAuthor(Long id, String name, String born, String website) {
         Author author = authorRepository.findOne(id);
         author.setName(name);
-        author.setSurname(surname);
         author.setBorn(born);
         author.setWebsite(website);
 

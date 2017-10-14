@@ -34,14 +34,14 @@ public class AuthorController {
 
     @RequestMapping(method = RequestMethod.POST, value = "/")
     public ResponseEntity<Void> createAuthor(@RequestBody Author author) {
-        authorService.createAuthor(author.getName(), author.getSurname(), author.getBorn(), author.getWebsite());
+        authorService.createAuthor(author.getName(), author.getBorn(), author.getWebsite());
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/{id}")
     public ResponseEntity<Author> updateAuthor(@RequestBody Author author, @PathVariable Long id) {
         Author updatedAuthor = authorService
-                .updateAuthor(id, author.getName(), author.getSurname(), author.getBorn(), author.getWebsite());
+                .updateAuthor(id, author.getName(), author.getBorn(), author.getWebsite());
         return new ResponseEntity<>(updatedAuthor, HttpStatus.CREATED);
     }
 

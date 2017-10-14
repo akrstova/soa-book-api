@@ -18,9 +18,6 @@ public class Author {
     @Column(length = 100)
     private String name;
 
-    @Column(length = 100)
-    private String surname;
-
     @Column(length = 20)
     private String born;
 

@@ -72,7 +72,6 @@ services:
     links:
       - book-api-mysql
       - book-api-eureka
-      - book-api-gateway
     depends_on:
       - book-api-mysql
       - book-api-traefik
@@ -87,7 +86,6 @@ services:
     links:
       - book-api-mysql
       - book-api-eureka
-      - book-api-gateway
     depends_on:
       - book-api-mysql
       - book-api-traefik
@@ -102,7 +100,6 @@ services:
     links:
       - book-api-mysql
       - book-api-eureka
-      - book-api-gateway
     depends_on:
       - book-api-mysql
       - book-api-traefik
@@ -117,7 +114,6 @@ services:
     links:
       - book-api-mysql
       - book-api-eureka
-      - book-api-gateway
     depends_on:
       - book-api-mysql
       - book-api-traefik
@@ -132,7 +128,6 @@ services:
     links:
       - book-api-mysql
       - book-api-eureka
-      - book-api-gateway
     depends_on:
       - book-api-mysql
       - book-api-traefik
@@ -147,7 +142,6 @@ services:
     links:
       - book-api-mysql
       - book-api-eureka
-      - book-api-gateway
     depends_on:
       - book-api-mysql
       - book-api-traefik
@@ -162,7 +156,6 @@ services:
     links:
       - book-api-mysql
       - book-api-eureka
-      - book-api-gateway
     depends_on:
       - book-api-mysql
       - book-api-traefik
